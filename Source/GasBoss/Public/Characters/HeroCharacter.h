@@ -6,8 +6,10 @@
 #include "GasBoss/Public/Characters/BaseCharacter.h"
 #include "HeroCharacter.generated.h"
 
+struct FInputActionValue;
 class UCameraComponent;
 class USpringArmComponent;
+class UDataAsset_InputConfig;
 /**
  * 
  */
@@ -21,6 +23,8 @@ public:
 protected:
     virtual void BeginPlay() override;
 
+    virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
 private:
 #pragma region Components
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
@@ -29,4 +33,10 @@ private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
     class USpringArmComponent* SpringArmComponent;
 #pragma endregion
+    
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharData", meta = (AllowPrivateAccess = "true"))
+    UDataAsset_InputConfig* InputConfigDataAsset;
+    
+    void MoveInput(const FInputActionValue& Value);
+    void LookInput(const FInputActionValue& Value);
 };

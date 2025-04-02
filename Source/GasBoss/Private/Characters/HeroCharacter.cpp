@@ -5,6 +5,12 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "DataAssets/Input/DataAsset_InputConfig.h"
+#include "Components/Input/GasBossInputComponent.h"
+#include "GasBossGameplayTags.h"
+#include "Engine/LocalPlayer.h"
+
 #include "GasBoss/Public/DebugHelper.h"
 
 AHeroCharacter::AHeroCharacter()
@@ -34,6 +40,51 @@ AHeroCharacter::AHeroCharacter()
 void AHeroCharacter::BeginPlay()
 {
     Super::BeginPlay();
+}
 
-    Debug::Print(TEXT("TEST"));
+void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+    checkf(InputConfigDataAsset, TEXT("InputConfigDataAsset is null"));
+    ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
+
+    UEnhancedInputLocalPlayerSubsystem* InputSubsys = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
+    check(InputSubsys);
+    InputSubsys->AddMappingContext(InputConfigDataAsset->DefaultInputMappingContext, 0);
+
+    UGasBossInputComponent* GasBossInputComponent = CastChecked<UGasBossInputComponent>(PlayerInputComponent);
+    GasBossInputComponent->BindNativeInputAction(InputConfigDataAsset, GasBossGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &AHeroCharacter::MoveInput);
+    GasBossInputComponent->BindNativeInputAction(InputConfigDataAsset, GasBossGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &AHeroCharacter::LookInput);
+}
+
+void AHeroCharacter::MoveInput(const FInputActionValue& Value)
+{
+    const FVector2D MoveVector = Value.Get<FVector2D>();
+    const FRotator MoveRotation(0.0f, GetControlRotation().Yaw, 0.0f);
+
+    if (MoveVector.Y != 0.f)
+    {
+        const FVector ForwardVector = MoveRotation.RotateVector(FVector::ForwardVector);
+        AddMovementInput(ForwardVector, MoveVector.Y);
+    }
+
+    if (MoveVector.X != 0.f)
+    {
+        const FVector RightVector = MoveRotation.RotateVector(FVector::RightVector);
+        AddMovementInput(RightVector, MoveVector.X);
+    }
+}
+
+void AHeroCharacter::LookInput(const FInputActionValue& Value)
+{
+    const FVector2D LookVector = Value.Get<FVector2D>();
+
+    if (LookVector.X != 0.f)
+    {
+        AddControllerYawInput(LookVector.X);
+    }
+
+    if (LookVector.Y != 0.f)
+    {
+        AddControllerPitchInput(LookVector.Y);
+    }
 }
