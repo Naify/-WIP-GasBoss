@@ -42,6 +42,16 @@ void AHeroCharacter::BeginPlay()
     Super::BeginPlay();
 }
 
+void AHeroCharacter::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+
+    if (HeroAbilitySystemComponent && HeroAttributeSet)
+    {
+        Debug::Print("ASC valid");
+    }
+}
+
 void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     checkf(InputConfigDataAsset, TEXT("InputConfigDataAsset is null"));

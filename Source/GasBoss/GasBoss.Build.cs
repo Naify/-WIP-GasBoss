@@ -16,6 +16,7 @@ public class GasBoss : ModuleRules
 			"InputCore",
 			"EnhancedInput",
 			"GameplayTags",
+			"GameplayTasks",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

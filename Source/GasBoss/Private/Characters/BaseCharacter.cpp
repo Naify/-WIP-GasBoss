@@ -1,13 +1,33 @@
 // Naify
 
 #include "GasBoss/Public/Characters/BaseCharacter.h"
+#include "GAS/HeroAbilitySystemComponent.h"
+#include "GAS/HeroAttributeSet.h"
+#include "Components/SkeletalMeshComponent.h"
 
-// Sets default values
 ABaseCharacter::ABaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	GetMesh()->bReceivesDecals = false;
+
+	HeroAbilitySystemComponent = CreateDefaultSubobject<UHeroAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	HeroAttributeSet = CreateDefaultSubobject<UHeroAttributeSet>(TEXT("AttributeSet"));
+}
+
+UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+{
+	return GetHeroAbilitySystemComponent();
+}
+
+void ABaseCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (HeroAbilitySystemComponent)
+	{
+		HeroAbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
 }
 
