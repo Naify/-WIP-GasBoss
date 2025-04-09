@@ -12,6 +12,6 @@
 UCLASS()
 class GASBOSS_API UHeroAttributeSet : public UAttributeSet
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
 };

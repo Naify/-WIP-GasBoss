@@ -9,6 +9,7 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/GasBossInputComponent.h"
 #include "GasBossGameplayTags.h"
+#include "DataAssets/StartUpData/DataAsset_HeroStartupData.h"
 #include "Engine/LocalPlayer.h"
 
 #include "GasBoss/Public/DebugHelper.h"
@@ -46,9 +47,13 @@ void AHeroCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
 
-    if (HeroAbilitySystemComponent && HeroAttributeSet)
+    if (!CharacterStartupData.IsNull())
     {
-        Debug::Print("ASC valid");
+        UDataAsset_StartupDataBase* LoadedData = CharacterStartupData.LoadSynchronous();
+        if (LoadedData)
+        {
+            LoadedData->GiveToAbilitySystemComponent(GetHeroAbilitySystemComponent());
+        }
     }
 }
 

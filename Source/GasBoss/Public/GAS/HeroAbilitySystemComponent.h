@@ -12,6 +12,6 @@
 UCLASS()
 class GASBOSS_API UHeroAbilitySystemComponent : public UAbilitySystemComponent
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
 };

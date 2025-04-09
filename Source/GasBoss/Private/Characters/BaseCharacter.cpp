@@ -7,27 +7,28 @@
 
 ABaseCharacter::ABaseCharacter()
 {
-	PrimaryActorTick.bCanEverTick = false;
-	PrimaryActorTick.bStartWithTickEnabled = false;
+    PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bStartWithTickEnabled = false;
 
-	GetMesh()->bReceivesDecals = false;
+    GetMesh()->bReceivesDecals = false;
 
-	HeroAbilitySystemComponent = CreateDefaultSubobject<UHeroAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	HeroAttributeSet = CreateDefaultSubobject<UHeroAttributeSet>(TEXT("AttributeSet"));
+    HeroAbilitySystemComponent = CreateDefaultSubobject<UHeroAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+    HeroAttributeSet = CreateDefaultSubobject<UHeroAttributeSet>(TEXT("AttributeSet"));
 }
 
-UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+UAbilitySystemComponent *ABaseCharacter::GetAbilitySystemComponent() const
 {
-	return GetHeroAbilitySystemComponent();
+    return GetHeroAbilitySystemComponent();
 }
 
-void ABaseCharacter::PossessedBy(AController* NewController)
+void ABaseCharacter::PossessedBy(AController *NewController)
 {
-	Super::PossessedBy(NewController);
+    Super::PossessedBy(NewController);
 
-	if (HeroAbilitySystemComponent)
-	{
-		HeroAbilitySystemComponent->InitAbilityActorInfo(this, this);
-	}
+    if (HeroAbilitySystemComponent)
+    {
+        HeroAbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+        ensureMsgf(CharacterStartupData.IsValid(), TEXT("CharacterStartupData is not valid!"));
+    }
 }
-

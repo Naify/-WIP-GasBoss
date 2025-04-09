@@ -7,30 +7,34 @@
 #include "AbilitySystemInterface.h"
 #include "BaseCharacter.generated.h"
 
+class UDataAsset_HeroStartupData;
 class UHeroAbilitySystemComponent;
 class UHeroAttributeSet;
 
 UCLASS()
 class GASBOSS_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	ABaseCharacter();
+    ABaseCharacter();
 
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+    virtual UAbilitySystemComponent *GetAbilitySystemComponent() const override;
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
-	UHeroAbilitySystemComponent* HeroAbilitySystemComponent;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
+    UHeroAbilitySystemComponent *HeroAbilitySystemComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
-	UHeroAttributeSet* HeroAttributeSet;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
+    UHeroAttributeSet *HeroAttributeSet;
 
-	virtual void PossessedBy(AController* NewController) override;
-	
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharData")
+    TSoftObjectPtr<UDataAsset_HeroStartupData> CharacterStartupData;
+
+    virtual void PossessedBy(AController *NewController) override;
+
 public:
-	FORCEINLINE UHeroAbilitySystemComponent* GetHeroAbilitySystemComponent() const { return HeroAbilitySystemComponent; }
+    FORCEINLINE UHeroAbilitySystemComponent *GetHeroAbilitySystemComponent() const {return HeroAbilitySystemComponent;}
 
-	FORCEINLINE UHeroAttributeSet* GetHeroAttributeSet() const { return HeroAttributeSet; }
+    FORCEINLINE UHeroAttributeSet *GetHeroAttributeSet() const {return HeroAttributeSet;}
 };
