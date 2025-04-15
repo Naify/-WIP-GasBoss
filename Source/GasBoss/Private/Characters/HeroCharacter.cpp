@@ -11,6 +11,7 @@
 #include "GasBossGameplayTags.h"
 #include "DataAssets/StartUpData/DataAsset_HeroStartupData.h"
 #include "Engine/LocalPlayer.h"
+#include "Components/Combat/HeroCombatComponent.h"
 
 #include "GasBoss/Public/DebugHelper.h"
 
@@ -36,6 +37,8 @@ AHeroCharacter::AHeroCharacter()
     GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
     GetCharacterMovement()->MaxWalkSpeed = 400.f;
     GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+    CombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("CombatComponent"));
 }
 
 void AHeroCharacter::BeginPlay()

@@ -3,6 +3,7 @@
 
 #include "GAS/Abilities/HeroGameplayAbility.h"
 #include "AbilitySystemComponent.h"
+#include "Components/Combat/CombatComponent.h"
 
 void UHeroGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -30,4 +31,9 @@ void UHeroGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
             ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
         }
     }
+}
+
+UCombatComponent * UHeroGameplayAbility::GetCombatComponent() const
+{
+    return GetAvatarActorFromActorInfo()->FindComponentByClass<UCombatComponent>();
 }
