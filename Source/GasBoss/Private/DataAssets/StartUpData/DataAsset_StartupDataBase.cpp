@@ -4,7 +4,7 @@
 #include "DataAssets/StartUpData/DataAsset_StartupDataBase.h"
 
 #include "GAS/HeroAbilitySystemComponent.h"
-#include "GAS/Abilities/HeroGameplayAbility.h"
+#include "GAS/Abilities/BaseGameplayAbility.h"
 
 void UDataAsset_StartupDataBase::GiveToAbilitySystemComponent(UHeroAbilitySystemComponent *AbilitySystemComponent) const
 {
@@ -15,7 +15,7 @@ void UDataAsset_StartupDataBase::GiveToAbilitySystemComponent(UHeroAbilitySystem
 }
 
 void UDataAsset_StartupDataBase::GrantAbilities(UHeroAbilitySystemComponent *AbilitySystemComponent,
-    const TArray<TSubclassOf<UHeroGameplayAbility>> &Abilities) const
+    const TArray<TSubclassOf<UBaseGameplayAbility>> &Abilities) const
 {
     if (Abilities.Num() == 0)
     {

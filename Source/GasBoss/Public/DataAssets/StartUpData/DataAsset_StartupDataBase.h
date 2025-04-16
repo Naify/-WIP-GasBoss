@@ -7,7 +7,7 @@
 #include "DataAsset_StartupDataBase.generated.h"
 
 class UHeroAbilitySystemComponent;
-class UHeroGameplayAbility;
+class UBaseGameplayAbility;
 /**
  * 
  */
@@ -21,10 +21,10 @@ public:
     
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "StartupData")
-    TArray<TSubclassOf<UHeroGameplayAbility>> StartupAbilities;
+    TArray<TSubclassOf<UBaseGameplayAbility>> StartupAbilities;
 
     UPROPERTY(EditDefaultsOnly, Category = "StartupData")
-    TArray<TSubclassOf<UHeroGameplayAbility>> ReactiveAbilities;
+    TArray<TSubclassOf<UBaseGameplayAbility>> ReactiveAbilities;
 
-    void GrantAbilities(UHeroAbilitySystemComponent* AbilitySystemComponent, const TArray<TSubclassOf<UHeroGameplayAbility>>& Abilities) const;
+    void GrantAbilities(UHeroAbilitySystemComponent* AbilitySystemComponent, const TArray<TSubclassOf<UBaseGameplayAbility>>& Abilities) const;
 };

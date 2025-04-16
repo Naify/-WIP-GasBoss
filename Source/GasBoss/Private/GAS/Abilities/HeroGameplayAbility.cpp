@@ -2,38 +2,29 @@
 
 
 #include "GAS/Abilities/HeroGameplayAbility.h"
-#include "AbilitySystemComponent.h"
-#include "Components/Combat/CombatComponent.h"
 
-void UHeroGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
+#include "Characters/HeroCharacter.h"
+#include "Controllers/PlayerHeroController.h"
+
+AHeroCharacter * UHeroGameplayAbility::GetHeroCharacter()
 {
-    Super::OnGiveAbility(ActorInfo, Spec);
-
-    if (ActivationPolicy == EHeroAbilityActivationPolicy::OnGiven)
+    if (!CachedHeroCharacter.IsValid())
     {
-        if (ActorInfo && !Spec.IsActive())
-        {
-            ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, true);
-        }
+        CachedHeroCharacter = Cast<AHeroCharacter>(CurrentActorInfo->AvatarActor);
     }
+    return CachedHeroCharacter.IsValid() ? CachedHeroCharacter.Get() : nullptr;
 }
 
-void UHeroGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
-    const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
-    bool bReplicateEndAbility, bool bWasCancelled)
+APlayerHeroController * UHeroGameplayAbility::GetHeroController()
 {
-    Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
-
-    if (ActivationPolicy == EHeroAbilityActivationPolicy::OnGiven)
+    if (!CachedHeroController.IsValid())
     {
-        if (ActorInfo)
-        {
-            ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
-        }
+        CachedHeroController = Cast<APlayerHeroController>(CurrentActorInfo->PlayerController);
     }
+    return CachedHeroController.IsValid() ? CachedHeroController.Get() : nullptr;
 }
 
-UCombatComponent * UHeroGameplayAbility::GetCombatComponent() const
+UHeroCombatComponent * UHeroGameplayAbility::GetHeroCombatComponent()
 {
-    return GetAvatarActorFromActorInfo()->FindComponentByClass<UCombatComponent>();
+    return GetHeroCharacter()->GetCombatComponent();
 }

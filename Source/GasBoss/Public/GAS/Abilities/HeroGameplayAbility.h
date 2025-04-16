@@ -3,33 +3,31 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Abilities/GameplayAbility.h"
+#include "GAS/Abilities/BaseGameplayAbility.h"
 #include "HeroGameplayAbility.generated.h"
 
-class UCombatComponent;
-
-UENUM(BlueprintType)
-enum class EHeroAbilityActivationPolicy : uint8
-{
-	OnTriggered,
-	OnGiven
-};
-
+class UHeroCombatComponent;
+class APlayerHeroController;
+class AHeroCharacter;
 /**
  * 
  */
 UCLASS()
-class GASBOSS_API UHeroGameplayAbility : public UGameplayAbility
+class GASBOSS_API UHeroGameplayAbility : public UBaseGameplayAbility
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-protected:
-	UPROPERTY(EditDefaultsOnly, Category="HeroAbility")
-	EHeroAbilityActivationPolicy ActivationPolicy = EHeroAbilityActivationPolicy::OnTriggered;
-
-	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
-	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
+public:
+    UFUNCTION(BlueprintPure, Category = "HeroAbility")
+    AHeroCharacter* GetHeroCharacter();
 
     UFUNCTION(BlueprintPure, Category = "HeroAbility")
-    UCombatComponent* GetCombatComponent() const;
+    APlayerHeroController* GetHeroController();
+
+    UFUNCTION(BlueprintPure, Category = "HeroAbility")
+    UHeroCombatComponent* GetHeroCombatComponent();
+
+private:
+    TWeakObjectPtr<AHeroCharacter> CachedHeroCharacter;
+    TWeakObjectPtr<APlayerHeroController> CachedHeroController;
 };

@@ -12,6 +12,8 @@
 #include "DataAssets/StartUpData/DataAsset_HeroStartupData.h"
 #include "Engine/LocalPlayer.h"
 #include "Components/Combat/HeroCombatComponent.h"
+#include "GameplayTagContainer.h"
+#include "GAS/HeroAbilitySystemComponent.h"
 
 #include "GasBoss/Public/DebugHelper.h"
 
@@ -72,6 +74,8 @@ void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
     UGasBossInputComponent* GasBossInputComponent = CastChecked<UGasBossInputComponent>(PlayerInputComponent);
     GasBossInputComponent->BindNativeInputAction(InputConfigDataAsset, GasBossGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &AHeroCharacter::MoveInput);
     GasBossInputComponent->BindNativeInputAction(InputConfigDataAsset, GasBossGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &AHeroCharacter::LookInput);
+
+    GasBossInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &AHeroCharacter::Input_AbilityInputPressed, &AHeroCharacter::Input_AbilityInputReleased);
 }
 
 void AHeroCharacter::MoveInput(const FInputActionValue& Value)
@@ -105,4 +109,14 @@ void AHeroCharacter::LookInput(const FInputActionValue& Value)
     {
         AddControllerPitchInput(LookVector.Y);
     }
+}
+
+void AHeroCharacter::Input_AbilityInputPressed(const FGameplayTag Tag)
+{
+    HeroAbilitySystemComponent->OnAbilityInputPressed(Tag);
+}
+
+void AHeroCharacter::Input_AbilityInputReleased(const FGameplayTag Tag)
+{
+    HeroAbilitySystemComponent->OnAbilityInputReleased(Tag);
 }

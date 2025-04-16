@@ -6,6 +6,7 @@
 #include "GasBoss/Public/Characters/BaseCharacter.h"
 #include "HeroCharacter.generated.h"
 
+struct FGameplayTag;
 struct FInputActionValue;
 class UCameraComponent;
 class USpringArmComponent;
@@ -46,6 +47,9 @@ private:
     void MoveInput(const FInputActionValue& Value);
     void LookInput(const FInputActionValue& Value);
 
+    void Input_AbilityInputPressed(const FGameplayTag Tag);
+    void Input_AbilityInputReleased(const FGameplayTag Tag);
+    
 public:
     FORCEINLINE UHeroCombatComponent* GetCombatComponent() const { return CombatComponent; }
 };
