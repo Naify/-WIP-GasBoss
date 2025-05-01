@@ -16,7 +16,7 @@ class GASBOSS_API UHeroAnimInstance : public UCharacterAnimInstance
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY()
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Anims")
 	AHeroCharacter* OwningHeroCharacter;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Anims")

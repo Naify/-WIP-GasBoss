@@ -4,22 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "DataAssets/StartUpData/DataAsset_StartupDataBase.h"
-#include "GameplayTagContainer.h"
+#include "GasBossTypes/GasBossStructTypes.h"
 #include "DataAsset_HeroStartupData.generated.h"
-
-USTRUCT(BlueprintType)
-struct FHeroAbilitySet
-{
-    GENERATED_BODY()
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
-    FGameplayTag InputTag;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-    TSubclassOf<UBaseGameplayAbility> AbilityClass;
-
-    bool IsValid() const;
-};
 
 /**
  * 

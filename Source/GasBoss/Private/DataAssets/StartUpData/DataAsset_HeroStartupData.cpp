@@ -6,11 +6,6 @@
 #include "GAS/HeroAbilitySystemComponent.h"
 #include "GAS/Abilities/BaseGameplayAbility.h"
 
-bool FHeroAbilitySet::IsValid() const
-{
-    return InputTag.IsValid() && AbilityClass != nullptr;
-}
-
 void UDataAsset_HeroStartupData::GiveToAbilitySystemComponent(UHeroAbilitySystemComponent *AbilitySystemComponent) const
 {
     Super::GiveToAbilitySystemComponent(AbilitySystemComponent);

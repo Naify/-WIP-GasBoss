@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "GasBossTypes/GasBossStructTypes.h"
 #include "HeroAbilitySystemComponent.generated.h"
 
 /**
@@ -17,4 +18,10 @@ class GASBOSS_API UHeroAbilitySystemComponent : public UAbilitySystemComponent
 public:
     void OnAbilityInputPressed(const FGameplayTag& InputTag);
     void OnAbilityInputReleased(const FGameplayTag& InputTag);
+
+    UFUNCTION(BlueprintCallable, Category = "Ability", meta = (Level = "1"))
+    void GrantHeroWeaponAbilities(const TArray<FHeroAbilitySet>& WeaponAbilities, int32 Level, TArray<FGameplayAbilitySpecHandle>& OutAbilityHandles);
+
+    UFUNCTION(BlueprintCallable, Category = "Ability")
+    void RemoveHeroWeaponAbilities(UPARAM(ref) TArray<FGameplayAbilitySpecHandle>& AbilityHandles);
 };
