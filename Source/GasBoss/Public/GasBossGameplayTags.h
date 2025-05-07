@@ -6,6 +6,7 @@
 
 namespace GasBossGameplayTags
 {
+    //Input tags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Move);
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_Look);
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_EquipAxe);
@@ -13,6 +14,7 @@ namespace GasBossGameplayTags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_LightAttack_Axe);
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(InputTag_HeavyAttack_Axe);
 
+    //Player tags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Equip_Axe);
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Unequip_Axe);
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Ability_Attack_Light_Axe);
@@ -20,6 +22,10 @@ namespace GasBossGameplayTags
 
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Weapon_Axe);
 
+    //Anim player tags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Equip_Axe);
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_UnEquip_Axe);
+
+    //Enemy tags
+    GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_weapon);
 }

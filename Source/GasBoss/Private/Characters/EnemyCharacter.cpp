@@ -3,7 +3,10 @@
 
 #include "Characters/EnemyCharacter.h"
 
+#include "DebugHelper.h"
 #include "Components/Combat/EnemyCombatComponent.h"
+#include "DataAssets/StartUpData/DataAsset_EnemyData.h"
+#include "Engine/AssetManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 AEnemyCharacter::AEnemyCharacter()
@@ -21,4 +24,32 @@ AEnemyCharacter::AEnemyCharacter()
     GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
     EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
+}
+
+void AEnemyCharacter::PossessedBy(AController *NewController)
+{
+    Super::PossessedBy(NewController);
+
+    InitEnemyData();
+}
+
+void AEnemyCharacter::InitEnemyData()
+{
+    if (CharacterStartupData.IsNull())
+    {
+        return;
+    }
+
+    UAssetManager::GetStreamableManager().RequestAsyncLoad(
+        CharacterStartupData.ToSoftObjectPath(),
+        FStreamableDelegate::CreateLambda(
+            [this]()
+            {
+                if (UDataAsset_StartupDataBase* Data = CharacterStartupData.Get())
+                {
+                    Data->GiveToAbilitySystemComponent(HeroAbilitySystemComponent);
+                }
+            }
+        )
+    );
 }

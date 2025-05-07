@@ -2,7 +2,7 @@
 
 #include "GasBoss/Public/Characters/BaseCharacter.h"
 #include "GAS/HeroAbilitySystemComponent.h"
-#include "GAS/HeroAttributeSet.h"
+#include "GAS/BaseAttributeSet.h"
 #include "Components/SkeletalMeshComponent.h"
 
 ABaseCharacter::ABaseCharacter()
@@ -13,7 +13,7 @@ ABaseCharacter::ABaseCharacter()
     GetMesh()->bReceivesDecals = false;
 
     HeroAbilitySystemComponent = CreateDefaultSubobject<UHeroAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-    HeroAttributeSet = CreateDefaultSubobject<UHeroAttributeSet>(TEXT("AttributeSet"));
+    HeroAttributeSet = CreateDefaultSubobject<UBaseAttributeSet>(TEXT("AttributeSet"));
 }
 
 UAbilitySystemComponent *ABaseCharacter::GetAbilitySystemComponent() const

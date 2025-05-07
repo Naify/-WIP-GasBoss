@@ -7,9 +7,9 @@
 #include "AbilitySystemInterface.h"
 #include "BaseCharacter.generated.h"
 
-class UDataAsset_HeroStartupData;
+class UDataAsset_StartupDataBase;
 class UHeroAbilitySystemComponent;
-class UHeroAttributeSet;
+class UBaseAttributeSet;
 
 UCLASS()
 class GASBOSS_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -26,15 +26,15 @@ protected:
     UHeroAbilitySystemComponent *HeroAbilitySystemComponent;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
-    UHeroAttributeSet *HeroAttributeSet;
+    UBaseAttributeSet *HeroAttributeSet;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharData")
-    TSoftObjectPtr<UDataAsset_HeroStartupData> CharacterStartupData;
+    TSoftObjectPtr<UDataAsset_StartupDataBase> CharacterStartupData;
 
     virtual void PossessedBy(AController *NewController) override;
 
 public:
     FORCEINLINE UHeroAbilitySystemComponent *GetHeroAbilitySystemComponent() const {return HeroAbilitySystemComponent;}
 
-    FORCEINLINE UHeroAttributeSet *GetHeroAttributeSet() const {return HeroAttributeSet;}
+    FORCEINLINE UBaseAttributeSet *GetHeroAttributeSet() const {return HeroAttributeSet;}
 };

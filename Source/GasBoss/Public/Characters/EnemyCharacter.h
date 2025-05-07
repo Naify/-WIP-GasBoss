@@ -23,4 +23,9 @@ public:
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UEnemyCombatComponent* EnemyCombatComponent;
+
+    virtual void PossessedBy(AController* NewController) override;
+
+private:
+    void InitEnemyData();
 };
