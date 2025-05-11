@@ -60,6 +60,9 @@ void AHeroCharacter::PossessedBy(AController* NewController)
             LoadedData->GiveToAbilitySystemComponent(GetHeroAbilitySystemComponent());
         }
     }
+
+    GetAbilitySystemComponent()->PrintDebug();
+    GetAbilitySystemComponent()->PrintAllGameplayEffects();
 }
 
 void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

@@ -3,10 +3,12 @@
 
 #include "Characters/EnemyCharacter.h"
 
+#include "AbilitySystemComponent.h"
 #include "DebugHelper.h"
 #include "Components/Combat/EnemyCombatComponent.h"
 #include "DataAssets/StartUpData/DataAsset_EnemyData.h"
 #include "Engine/AssetManager.h"
+#include "GAS/BaseAttributeSet.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 AEnemyCharacter::AEnemyCharacter()
@@ -45,11 +47,16 @@ void AEnemyCharacter::InitEnemyData()
         FStreamableDelegate::CreateLambda(
             [this]()
             {
-                if (UDataAsset_StartupDataBase* Data = CharacterStartupData.Get())
+                if (UDataAsset_StartupDataBase *Data = CharacterStartupData.Get())
                 {
                     Data->GiveToAbilitySystemComponent(HeroAbilitySystemComponent);
+                    Debug::Print(TEXT("Enemy Data Loaded"), FColor::Green, 5.f);
+
+                    GetAbilitySystemComponent()->PrintDebug();
+                    GetAbilitySystemComponent()->PrintAllGameplayEffects();
                 }
             }
-        )
-    );
+            )
+        );
+
 }

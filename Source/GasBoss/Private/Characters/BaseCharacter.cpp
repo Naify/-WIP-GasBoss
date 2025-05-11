@@ -29,6 +29,6 @@ void ABaseCharacter::PossessedBy(AController *NewController)
     {
         HeroAbilitySystemComponent->InitAbilityActorInfo(this, this);
 
-        ensureMsgf(CharacterStartupData.IsValid(), TEXT("CharacterStartupData is not valid!"));
+        ensureMsgf(CharacterStartupData.IsNull(), TEXT("CharacterStartupData is not valid!"));
     }
 }

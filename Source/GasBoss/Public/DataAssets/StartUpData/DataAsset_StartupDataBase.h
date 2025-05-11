@@ -8,6 +8,7 @@
 
 class UHeroAbilitySystemComponent;
 class UBaseGameplayAbility;
+class UGameplayEffect;
 /**
  * 
  */
@@ -25,6 +26,9 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "StartupData")
     TArray<TSubclassOf<UBaseGameplayAbility>> ReactiveAbilities;
+
+    UPROPERTY(EditDefaultsOnly, Category = "StartupData")
+    TArray<TSubclassOf<UGameplayEffect>> StartGameplayEffects;
 
     void GrantAbilities(UHeroAbilitySystemComponent* AbilitySystemComponent, const TArray<TSubclassOf<UBaseGameplayAbility>>& Abilities) const;
 };

@@ -12,6 +12,30 @@ void UDataAsset_StartupDataBase::GiveToAbilitySystemComponent(UHeroAbilitySystem
 
     GrantAbilities(AbilitySystemComponent, StartupAbilities);
     GrantAbilities(AbilitySystemComponent, ReactiveAbilities);
+
+    if (!StartGameplayEffects.IsEmpty())
+    {
+        for (const TSubclassOf<UGameplayEffect>& Effect : StartGameplayEffects)
+        {
+            if (Effect)
+            {
+                // FGameplayEffectSpecHandle EffectSpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, 1.f, AbilitySystemComponent->MakeEffectContext());
+                //
+                // if (EffectSpecHandle.IsValid())
+                // {
+                //     AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
+                // }
+
+                UGameplayEffect* EffectCDO = Effect->GetDefaultObject<UGameplayEffect>();
+
+                AbilitySystemComponent->ApplyGameplayEffectToSelf(
+                    EffectCDO,
+                    1.f,
+                    AbilitySystemComponent->MakeEffectContext()
+                );
+            }
+        }
+    }
 }
 
 void UDataAsset_StartupDataBase::GrantAbilities(UHeroAbilitySystemComponent *AbilitySystemComponent,
