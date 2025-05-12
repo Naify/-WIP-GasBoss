@@ -43,6 +43,11 @@ AHeroCharacter::AHeroCharacter()
     CombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("CombatComponent"));
 }
 
+UCombatComponent * AHeroCharacter::GetCombatComponent() const
+{
+    return CombatComponent;
+}
+
 void AHeroCharacter::BeginPlay()
 {
     Super::BeginPlay();

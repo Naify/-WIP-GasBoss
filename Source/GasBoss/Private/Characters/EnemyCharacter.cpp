@@ -28,6 +28,11 @@ AEnemyCharacter::AEnemyCharacter()
     EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
 }
 
+UCombatComponent * AEnemyCharacter::GetCombatComponent() const
+{
+    return EnemyCombatComponent;
+}
+
 void AEnemyCharacter::PossessedBy(AController *NewController)
 {
     Super::PossessedBy(NewController);
@@ -50,7 +55,6 @@ void AEnemyCharacter::InitEnemyData()
                 if (UDataAsset_StartupDataBase *Data = CharacterStartupData.Get())
                 {
                     Data->GiveToAbilitySystemComponent(HeroAbilitySystemComponent);
-                    Debug::Print(TEXT("Enemy Data Loaded"), FColor::Green, 5.f);
 
                     GetAbilitySystemComponent()->PrintDebug();
                     GetAbilitySystemComponent()->PrintAllGameplayEffects();

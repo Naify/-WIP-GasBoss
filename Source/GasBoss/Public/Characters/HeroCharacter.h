@@ -22,6 +22,8 @@ class GASBOSS_API AHeroCharacter : public ABaseCharacter
 public:
     AHeroCharacter();
 
+    virtual UCombatComponent *GetCombatComponent() const override;
+
 protected:
     virtual void BeginPlay() override;
 
@@ -49,7 +51,4 @@ private:
 
     void Input_AbilityInputPressed(const FGameplayTag Tag);
     void Input_AbilityInputReleased(const FGameplayTag Tag);
-    
-public:
-    FORCEINLINE UHeroCombatComponent* GetCombatComponent() const { return CombatComponent; }
 };

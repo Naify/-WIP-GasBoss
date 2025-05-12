@@ -18,7 +18,7 @@ class GASBOSS_API AEnemyCharacter : public ABaseCharacter
 public:
     AEnemyCharacter();
 
-    FORCEINLINE UEnemyCombatComponent* GetCombatComponent() const { return EnemyCombatComponent; }
+    virtual UCombatComponent *GetCombatComponent() const override;
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")

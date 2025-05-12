@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "Interfaces/PawnCombatInterface.h"
 #include "BaseCharacter.generated.h"
 
 class UDataAsset_StartupDataBase;
@@ -12,7 +13,7 @@ class UHeroAbilitySystemComponent;
 class UBaseAttributeSet;
 
 UCLASS()
-class GASBOSS_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
+class GASBOSS_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
 {
     GENERATED_BODY()
 
@@ -20,6 +21,8 @@ public:
     ABaseCharacter();
 
     virtual UAbilitySystemComponent *GetAbilitySystemComponent() const override;
+
+    virtual UCombatComponent *GetCombatComponent() const override;
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")

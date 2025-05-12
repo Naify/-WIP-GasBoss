@@ -4,6 +4,7 @@
 #include "GAS/Abilities/EnemyGameplayAbility.h"
 
 #include "Characters/EnemyCharacter.h"
+#include "Components/Combat/EnemyCombatComponent.h"
 
 AEnemyCharacter * UEnemyGameplayAbility::GetEnemyCharacter()
 {
@@ -16,5 +17,5 @@ AEnemyCharacter * UEnemyGameplayAbility::GetEnemyCharacter()
 
 UEnemyCombatComponent * UEnemyGameplayAbility::GetEnemyCombatComponent()
 {
-    return GetEnemyCharacter()->GetCombatComponent();
+    return Cast<UEnemyCombatComponent>(GetEnemyCharacter()->GetCombatComponent());
 }

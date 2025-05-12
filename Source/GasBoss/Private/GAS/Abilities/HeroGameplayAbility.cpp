@@ -4,6 +4,7 @@
 #include "GAS/Abilities/HeroGameplayAbility.h"
 
 #include "Characters/HeroCharacter.h"
+#include "Components/Combat/HeroCombatComponent.h"
 #include "Controllers/PlayerHeroController.h"
 
 AHeroCharacter * UHeroGameplayAbility::GetHeroCharacter()
@@ -26,5 +27,5 @@ APlayerHeroController * UHeroGameplayAbility::GetHeroController()
 
 UHeroCombatComponent * UHeroGameplayAbility::GetHeroCombatComponent()
 {
-    return GetHeroCharacter()->GetCombatComponent();
+    return Cast<UHeroCombatComponent>(GetHeroCharacter()->GetCombatComponent());
 }
