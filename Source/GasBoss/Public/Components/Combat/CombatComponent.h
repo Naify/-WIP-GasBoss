@@ -23,23 +23,30 @@ enum class EToggleDamageType : uint8
 UCLASS()
 class GASBOSS_API UCombatComponent : public UExtensionComponentBase
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
+
 public:
     UPROPERTY(BlueprintReadWrite, Category = "Combat")
     FGameplayTag CurrentEquippedWeaponTag;
-    
-    UFUNCTION(BlueprintCallable, Category = "Combat")
-    void RegisterWeapon(FGameplayTag Tag, AWeaponBase* Weapon, bool bRegisterAsEquipped = false);
 
     UFUNCTION(BlueprintCallable, Category = "Combat")
-    AWeaponBase* GetWeapon(FGameplayTag Tag) const;
+    void RegisterWeapon(FGameplayTag Tag, AWeaponBase *Weapon, bool bRegisterAsEquipped = false);
 
     UFUNCTION(BlueprintCallable, Category = "Combat")
-    AWeaponBase* GetCurrentEquippedWeapon() const;
+    AWeaponBase *GetWeapon(FGameplayTag Tag) const;
+
+    UFUNCTION(BlueprintCallable, Category = "Combat")
+    AWeaponBase *GetCurrentEquippedWeapon() const;
 
     UFUNCTION(BlueprintCallable, Category = "Combat")
     void ToggleWeaponCollison(bool bEnable, EToggleDamageType DamageType = EToggleDamageType::CurrentEquippedWeapon);
-    
+
+    virtual void OnHitTarget(AActor *HitActor);
+    virtual void OnEndHitTarget(AActor *HitActor);
+
+protected:
+    TArray<AActor *> OverlapedActors;
+
 private:
-    TMap<FGameplayTag, AWeaponBase*> CarriedWeaponsMap;
+    TMap<FGameplayTag, AWeaponBase *> CarriedWeaponsMap;
 };

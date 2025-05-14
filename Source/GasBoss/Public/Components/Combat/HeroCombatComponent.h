@@ -18,4 +18,8 @@ class GASBOSS_API UHeroCombatComponent : public UCombatComponent
 public:
     UFUNCTION(BlueprintCallable, Category = "Weapons")
     AHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
+
+    virtual void OnHitTarget(AActor* HitActor);
+    virtual void OnEndHitTarget(AActor* HitActor);
+
 };

@@ -28,4 +28,7 @@ namespace GasBossGameplayTags
 
     //Enemy tags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_weapon);
+
+    //Shared tags
+    GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeeleHit);
 }

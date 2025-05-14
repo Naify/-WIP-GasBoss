@@ -19,5 +19,6 @@ namespace GasBossGameplayTags
     UE_DEFINE_GAMEPLAY_TAG(Player_Event_Equip_Axe, "Player.Event.Equip.Axe");
     UE_DEFINE_GAMEPLAY_TAG(Player_Event_UnEquip_Axe, "Player.Event.UnEquip.Axe");
     UE_DEFINE_GAMEPLAY_TAG(Enemy_weapon, "Enemy.Weapon");
+    UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeeleHit, "Shared.Event.MeeleHit");
 
 }

@@ -14,6 +14,9 @@ void UCombatComponent::RegisterWeapon(FGameplayTag Tag, AWeaponBase *Weapon, boo
 
     CarriedWeaponsMap.Emplace(Tag, Weapon);
 
+    Weapon->OnWeaponHitTarget.BindUObject(this, &UCombatComponent::OnHitTarget);
+    Weapon->OnWeaponEndHitTarget.BindUObject(this, &UCombatComponent::OnEndHitTarget);
+
     if (bRegisterAsEquipped)
     {
         CurrentEquippedWeaponTag = Tag;
@@ -49,17 +52,22 @@ void UCombatComponent::ToggleWeaponCollison(bool bEnable, EToggleDamageType Dama
 
         check(Weapon);
 
-        Weapon->GetWeaponCollision()->SetCollisionEnabled(
-            bEnable ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
-        FString MSG = bEnable ? TEXT("Weapon Collision Enabled") : TEXT("Weapon Collision Disabled");
-        Debug::Print(MSG, FColor::Green, 5.f);
+        if (bEnable)
+        {
+            Weapon->GetWeaponCollision()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+        }
+        else
+        {
+            Weapon->GetWeaponCollision()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            OverlapedActors.Empty();
+        }
     }
-    else if (DamageType == EToggleDamageType::LeftHand)
-    {
+}
 
-    }
-    else if (DamageType == EToggleDamageType::RightHand)
-    {
+void UCombatComponent::OnHitTarget(AActor *HitActor)
+{
+}
 
-    }
+void UCombatComponent::OnEndHitTarget(AActor *HitActor)
+{
 }
