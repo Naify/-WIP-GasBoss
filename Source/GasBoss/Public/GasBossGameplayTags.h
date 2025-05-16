@@ -26,9 +26,15 @@ namespace GasBossGameplayTags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_Equip_Axe);
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Event_UnEquip_Axe);
 
+    GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Light);
+    //GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_SetByCaller_AttackType_Heavy); // implement later
+
     //Enemy tags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_weapon);
 
     //Shared tags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeeleHit);
+
+    GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_SetByCaller_Damage);
+
 }

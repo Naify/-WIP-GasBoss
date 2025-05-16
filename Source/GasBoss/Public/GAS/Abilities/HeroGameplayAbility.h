@@ -19,13 +19,19 @@ class GASBOSS_API UHeroGameplayAbility : public UBaseGameplayAbility
 
 public:
     UFUNCTION(BlueprintPure, Category = "HeroAbility")
-    AHeroCharacter* GetHeroCharacter();
+    AHeroCharacter *GetHeroCharacter();
 
     UFUNCTION(BlueprintPure, Category = "HeroAbility")
-    APlayerHeroController* GetHeroController();
+    APlayerHeroController *GetHeroController();
 
     UFUNCTION(BlueprintPure, Category = "HeroAbility")
-    UHeroCombatComponent* GetHeroCombatComponent();
+    UHeroCombatComponent *GetHeroCombatComponent();
+
+    UFUNCTION(BlueprintPure, Category = "HeroAbility")
+    FGameplayEffectSpecHandle MakeHeroDamageGameplayEffectSpecHandle(TSubclassOf<UGameplayEffect> InGameplayEffectClass,
+                                                             float InWeaponDamage,
+                                                             FGameplayTag InCurrentAttackTypeTag,
+                                                             int32 InComboCount) const;
 
 private:
     TWeakObjectPtr<AHeroCharacter> CachedHeroCharacter;

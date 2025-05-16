@@ -4,6 +4,7 @@
 
 #include "GameplayTagContainer.h"
 #include "AnimInstances/Hero/HeroLinkedAnimLayer.h"
+#include "ScalableFloat.h"
 #include "GasBossStructTypes.generated.h"
 
 class UInputMappingContext;
@@ -36,5 +37,8 @@ struct FGasBossWeaponData
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     UInputMappingContext* WeaponInputMappingContext;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    FScalableFloat  WeaponDamage;
 };
 

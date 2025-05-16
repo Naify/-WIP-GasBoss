@@ -2,6 +2,8 @@
 
 
 #include "GAS/Abilities/BaseGameplayAbility.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "Components/Combat/CombatComponent.h"
 #include "GAS/HeroAbilitySystemComponent.h"
@@ -42,4 +44,19 @@ UCombatComponent * UBaseGameplayAbility::GetCombatComponent() const
 UHeroAbilitySystemComponent * UBaseGameplayAbility::GetHeroAbilitySystemComponent() const
 {
     return Cast<UHeroAbilitySystemComponent>(GetAbilitySystemComponentFromActorInfo());
+}
+
+FActiveGameplayEffectHandle UBaseGameplayAbility::NativeApplyGameplayEffectToTarget(AActor *TargetActor,
+    const FGameplayEffectSpecHandle &EffectSpecHandle)
+{
+    UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+    return GetHeroAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*EffectSpecHandle.Data, ASC);
+}
+
+FActiveGameplayEffectHandle UBaseGameplayAbility::BPApplyGameplayEffectToTarget(AActor *TargetActor,
+    const FGameplayEffectSpecHandle &EffectSpecHandle, ESuccessType &OutSuccessType)
+{
+    FActiveGameplayEffectHandle ActiveGameplayEffectHandle = NativeApplyGameplayEffectToTarget(TargetActor, EffectSpecHandle);
+    OutSuccessType = ActiveGameplayEffectHandle.WasSuccessfullyApplied() ?  ESuccessType::Success :  ESuccessType::Fail;
+    return ActiveGameplayEffectHandle;
 }

@@ -13,3 +13,10 @@ enum class EValidType : uint8
     Valid,
     Invalid
 };
+
+UENUM()
+enum class ESuccessType : uint8
+{
+    Success,
+    Fail
+};
