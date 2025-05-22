@@ -26,6 +26,23 @@ AEnemyCharacter::AEnemyCharacter()
     GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
     EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
+    // GetHeroAbilitySystemComponent()->RegisterComponent(); 
+}
+
+void AEnemyCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+
+    // // if (GetHeroAttributeSet())
+    // // {
+    //     GetHeroAbilitySystemComponent()->SetNumericAttributeBase(UBaseAttributeSet::GetMaxHealthAttribute(), 100.f);
+    // // }
+
+    FGameplayAttribute Attr = UBaseAttributeSet::GetMaxHealthAttribute();
+    if (!GetHeroAbilitySystemComponent()->HasAttributeSetForAttribute(Attr))
+    {
+        UE_LOG(LogTemp, Error, TEXT("ASC не содержит AttributeSet для MaxHealth"));
+    }
 }
 
 UCombatComponent * AEnemyCharacter::GetCombatComponent() const
@@ -47,20 +64,31 @@ void AEnemyCharacter::InitEnemyData()
         return;
     }
 
-    UAssetManager::GetStreamableManager().RequestAsyncLoad(
-        CharacterStartupData.ToSoftObjectPath(),
-        FStreamableDelegate::CreateLambda(
-            [this]()
-            {
-                if (UDataAsset_StartupDataBase *Data = CharacterStartupData.Get())
-                {
-                    Data->GiveToAbilitySystemComponent(HeroAbilitySystemComponent);
+    UDataAsset_StartupDataBase* LoadedData = CharacterStartupData.LoadSynchronous();
+    if (LoadedData)
+    {
+        LoadedData->GiveToAbilitySystemComponent(GetHeroAbilitySystemComponent());
+        GetAbilitySystemComponent()->PrintDebug();
+        GetAbilitySystemComponent()->PrintAllGameplayEffects();
+    }
 
-                    GetAbilitySystemComponent()->PrintDebug();
-                    GetAbilitySystemComponent()->PrintAllGameplayEffects();
-                }
-            }
-            )
-        );
+    // float Health = GetHeroAttributeSet()->GetMaxHealth();
+    // Debug::Print(TEXT("MaxHealth"), Health);
+
+    // UAssetManager::GetStreamableManager().RequestAsyncLoad(
+    //     CharacterStartupData.ToSoftObjectPath(),
+    //     FStreamableDelegate::CreateLambda(
+    //         [this]()
+    //         {
+    //             if (UDataAsset_StartupDataBase *Data = CharacterStartupData.Get())
+    //             {
+    //                 Data->GiveToAbilitySystemComponent(HeroAbilitySystemComponent);
+    //
+    //                 GetAbilitySystemComponent()->PrintDebug();
+    //                 GetAbilitySystemComponent()->PrintAllGameplayEffects();
+    //             }
+    //         }
+    //         )
+    // );
 
 }

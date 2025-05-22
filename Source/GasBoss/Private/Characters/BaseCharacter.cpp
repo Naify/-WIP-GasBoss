@@ -14,6 +14,7 @@ ABaseCharacter::ABaseCharacter()
 
     HeroAbilitySystemComponent = CreateDefaultSubobject<UHeroAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
     HeroAttributeSet = CreateDefaultSubobject<UBaseAttributeSet>(TEXT("AttributeSet"));
+    HeroAbilitySystemComponent->AddSpawnedAttribute(HeroAttributeSet);
 }
 
 UAbilitySystemComponent *ABaseCharacter::GetAbilitySystemComponent() const
@@ -34,6 +35,6 @@ void ABaseCharacter::PossessedBy(AController *NewController)
     {
         HeroAbilitySystemComponent->InitAbilityActorInfo(this, this);
 
-        ensureMsgf(CharacterStartupData.IsNull(), TEXT("CharacterStartupData is not valid!"));
+        ensureMsgf(!CharacterStartupData.IsNull(),TEXT("Forgot to assign start up data to %s"),*GetName());
     }
 }

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
-#include "AbilitySystemComponent.h"
+#include "HeroAbilitySystemComponent.h"
 #include "BaseAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -51,4 +51,6 @@ public:
     UPROPERTY(BlueprintReadOnly, Category = "Damage")
     FGameplayAttributeData DamageTaken;
     ATTRIBUTE_ACCESSORS(UBaseAttributeSet, DamageTaken)
+
+    virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData &Data) override;
 };

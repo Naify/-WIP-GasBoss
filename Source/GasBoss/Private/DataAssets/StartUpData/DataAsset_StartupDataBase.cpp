@@ -19,20 +19,20 @@ void UDataAsset_StartupDataBase::GiveToAbilitySystemComponent(UHeroAbilitySystem
         {
             if (Effect)
             {
-                // FGameplayEffectSpecHandle EffectSpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, 1.f, AbilitySystemComponent->MakeEffectContext());
+                FGameplayEffectSpecHandle EffectSpecHandle = AbilitySystemComponent->MakeOutgoingSpec(Effect, 1.f, AbilitySystemComponent->MakeEffectContext());
+                
+                if (EffectSpecHandle.IsValid())
+                {
+                    AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
+                }
+
+                // UGameplayEffect* EffectCDO = Effect->GetDefaultObject<UGameplayEffect>();
                 //
-                // if (EffectSpecHandle.IsValid())
-                // {
-                //     AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
-                // }
-
-                UGameplayEffect* EffectCDO = Effect->GetDefaultObject<UGameplayEffect>();
-
-                AbilitySystemComponent->ApplyGameplayEffectToSelf(
-                    EffectCDO,
-                    1.f,
-                    AbilitySystemComponent->MakeEffectContext()
-                );
+                // AbilitySystemComponent->ApplyGameplayEffectToSelf(
+                //     EffectCDO,
+                //     1.f,
+                //     AbilitySystemComponent->MakeEffectContext()
+                // );
             }
         }
     }

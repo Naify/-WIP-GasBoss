@@ -6,11 +6,11 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Interfaces/PawnCombatInterface.h"
+#include "GAS/BaseAttributeSet.h"
 #include "BaseCharacter.generated.h"
 
 class UDataAsset_StartupDataBase;
 class UHeroAbilitySystemComponent;
-class UBaseAttributeSet;
 
 UCLASS()
 class GASBOSS_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface

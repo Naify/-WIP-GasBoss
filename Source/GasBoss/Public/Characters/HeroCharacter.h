@@ -6,12 +6,12 @@
 #include "GasBoss/Public/Characters/BaseCharacter.h"
 #include "HeroCharacter.generated.h"
 
+class UHeroCombatComponent;
 struct FGameplayTag;
 struct FInputActionValue;
 class UCameraComponent;
 class USpringArmComponent;
 class UDataAsset_InputConfig;
-class HeroCombatComponent;
 /**
  * 
  */
@@ -23,6 +23,8 @@ public:
     AHeroCharacter();
 
     virtual UCombatComponent *GetCombatComponent() const override;
+
+    FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return CombatComponent;}
 
 protected:
     virtual void BeginPlay() override;

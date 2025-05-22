@@ -53,33 +53,31 @@ void UGEExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecu
     EvaluationParameters.SourceTags = ExecutionParams.GetOwningSpec().CapturedSourceTags.GetAggregatedTags();
     EvaluationParameters.TargetTags = ExecutionParams.GetOwningSpec().CapturedTargetTags.GetAggregatedTags();
 
-    float SourceAttackPower = 1.f;
+    float SourceAttackPower = 0.f;
 
     ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
         GetDamageCapture().AttackPowerDef, EvaluationParameters, SourceAttackPower);
     Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower);
 
-    float BaseDamage = 10.f;
-    int32 ComboCount = 1;
+    float BaseDamage = 0.f;
+    int32 ComboCount = 0;
 
-    for (const TTuple<FName, float> &TagMagnitude : ExecutionParams.GetOwningSpec().SetByCallerNameMagnitudes)
+    for (const TPair<FGameplayTag, float>& TagMagnitude : ExecutionParams.GetOwningSpec().SetByCallerTagMagnitudes)
     {
-        FGameplayTag GameplayTag = FGameplayTag::RequestGameplayTag(TagMagnitude.Key);
-
-        if (GameplayTag.MatchesTagExact(GasBossGameplayTags::Shared_SetByCaller_Damage))
+        if (TagMagnitude.Key.MatchesTagExact(GasBossGameplayTags::Shared_SetByCaller_Damage))
         {
             BaseDamage += TagMagnitude.Value;
-            Debug::Print(TEXT("BaseDamage"), ComboCount);
+            Debug::Print(TEXT("BaseDamage"), BaseDamage);
         }
 
-        if (GameplayTag.MatchesTagExact(GasBossGameplayTags::Player_SetByCaller_AttackType_Light))
+        if (TagMagnitude.Key.MatchesTagExact(GasBossGameplayTags::Player_SetByCaller_AttackType_Light))
         {
             ComboCount = TagMagnitude.Value;
             Debug::Print(TEXT("ComboCount"), ComboCount);
         }
     }
 
-    float TargetDefensePower = 1.f;
+    float TargetDefensePower = 0.f;
     ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
         GetDamageCapture().DefensePowerDef, EvaluationParameters, TargetDefensePower);
     Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower);

@@ -21,4 +21,4 @@ public:
 private:
     UPROPERTY(EditDefaultsOnly, Category = "StartupData")
     TArray<TSubclassOf<UEnemyGameplayAbility>> EnemyAbilities;
-};
+}; 
