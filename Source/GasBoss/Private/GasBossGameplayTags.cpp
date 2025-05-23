@@ -20,7 +20,10 @@ namespace GasBossGameplayTags
     UE_DEFINE_GAMEPLAY_TAG(Player_Event_UnEquip_Axe, "Player.Event.UnEquip.Axe");
     UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light");
     UE_DEFINE_GAMEPLAY_TAG(Enemy_weapon, "Enemy.Weapon");
+    UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_Meele, "Enemy.Ability.Melee");
     UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeeleHit, "Shared.Event.MeeleHit");
     UE_DEFINE_GAMEPLAY_TAG(Shared_SetByCaller_Damage, "Shared.SetByCaller.Damage");
+    UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_HitReact, "Shared.Ability.HitReact");
+    UE_DEFINE_GAMEPLAY_TAG(Shared_Event_HitReact, "Shared.Event.HitReact");
 
 }
