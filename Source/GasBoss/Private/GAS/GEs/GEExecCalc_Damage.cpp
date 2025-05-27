@@ -57,7 +57,7 @@ void UGEExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecu
 
     ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
         GetDamageCapture().AttackPowerDef, EvaluationParameters, SourceAttackPower);
-    Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower);
+    // Debug::Print(TEXT("SourceAttackPower"), SourceAttackPower);
 
     float BaseDamage = 0.f;
     int32 ComboCount = 0;
@@ -67,30 +67,30 @@ void UGEExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecu
         if (TagMagnitude.Key.MatchesTagExact(GasBossGameplayTags::Shared_SetByCaller_Damage))
         {
             BaseDamage += TagMagnitude.Value;
-            Debug::Print(TEXT("BaseDamage"), BaseDamage);
+            // Debug::Print(TEXT("BaseDamage"), BaseDamage);
         }
 
         if (TagMagnitude.Key.MatchesTagExact(GasBossGameplayTags::Player_SetByCaller_AttackType_Light))
         {
             ComboCount = TagMagnitude.Value;
-            Debug::Print(TEXT("ComboCount"), ComboCount);
+            // Debug::Print(TEXT("ComboCount"), ComboCount);
         }
     }
 
     float TargetDefensePower = 0.f;
     ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(
         GetDamageCapture().DefensePowerDef, EvaluationParameters, TargetDefensePower);
-    Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower);
+    // Debug::Print(TEXT("TargetDefensePower"), TargetDefensePower);
 
     if (ComboCount != 0)
     {
         const float DamageIncrease = (ComboCount - 1) * 0.1f + 1.f;
         BaseDamage *= DamageIncrease;
-        Debug::Print(TEXT("IncreasedBaseDamage"), BaseDamage);
+        // Debug::Print(TEXT("IncreasedBaseDamage"), BaseDamage);
     }
 
     const float FinalDamage = BaseDamage * SourceAttackPower / TargetDefensePower;
-    Debug::Print(TEXT("FinalDamage"), FinalDamage);
+    // Debug::Print(TEXT("FinalDamage"), FinalDamage);
 
     if (FinalDamage > 0.f)
     {

@@ -4,7 +4,9 @@
 #include "GAS/BaseAttributeSet.h"
 
 #include "DebugHelper.h"
+#include "FunctionLibrary.h"
 #include "GameplayEffectExtension.h"
+#include "GasBossGameplayTags.h"
 
 UBaseAttributeSet::UBaseAttributeSet()
 {
@@ -37,5 +39,10 @@ void UBaseAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 
         const FString DebugString = FString::Printf(TEXT("Damage: %f, OldHealth: %f, NewHealth: %f"), Damage, OldHealth, NewHealth);
         Debug::Print(DebugString, FColor::Red);
+
+        if (NewHealth == 0.f)
+        {
+            UFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), GasBossGameplayTags::Shared_Status_Death);
+        }
     }
 }

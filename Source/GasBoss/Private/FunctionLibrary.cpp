@@ -2,7 +2,10 @@
 
 
 #include "FunctionLibrary.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "Components/Combat/CombatComponent.h"
+#include "GAS/HeroAbilitySystemComponent.h"
 #include "Interfaces/PawnCombatInterface.h"
 
 UCombatComponent * UFunctionLibrary::NativeGetCombatComponentFromActor(AActor *Actor)
@@ -24,4 +27,21 @@ UCombatComponent * UFunctionLibrary::BP_GetPawnCombatComponentFromActor(AActor *
     OutValidType = CombatComponent ? EValidType::Valid : EValidType::Invalid;
 
     return CombatComponent;
+}
+
+UHeroAbilitySystemComponent* UFunctionLibrary::NativeGetHeroASCFromActor(AActor* InActor)
+{   
+    check(InActor);
+
+    return CastChecked<UHeroAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor));
+}
+
+void UFunctionLibrary::AddGameplayTagToActorIfNone(AActor *InActor, FGameplayTag TagToAdd)
+{
+    UHeroAbilitySystemComponent* ASC = NativeGetHeroASCFromActor(InActor);
+
+    if (!ASC->HasMatchingGameplayTag(TagToAdd))
+    {
+        ASC->AddLooseGameplayTag(TagToAdd);
+    }
 }
