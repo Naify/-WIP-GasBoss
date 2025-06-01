@@ -27,6 +27,11 @@ UCombatComponent * ABaseCharacter::GetCombatComponent() const
     return nullptr;
 }
 
+UUIComponent * ABaseCharacter::GetUIComponent() const
+{
+    return nullptr;
+}
+
 void ABaseCharacter::PossessedBy(AController *NewController)
 {
     Super::PossessedBy(NewController);

@@ -6,6 +6,7 @@
 #include "GasBoss/Public/Characters/BaseCharacter.h"
 #include "HeroCharacter.generated.h"
 
+class UHeroUIComponent;
 class UHeroCombatComponent;
 struct FGameplayTag;
 struct FInputActionValue;
@@ -26,6 +27,9 @@ public:
 
     FORCEINLINE UHeroCombatComponent* GetHeroCombatComponent() const { return CombatComponent;}
 
+    virtual UUIComponent* GetUIComponent() const override;
+    virtual UHeroUIComponent* GetHeroUIComponent() const override;
+
 protected:
     virtual void BeginPlay() override;
 
@@ -36,15 +40,18 @@ protected:
 private:
 #pragma region Components
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
-    class UCameraComponent* CameraComponent;
+    UCameraComponent* CameraComponent;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
-    class USpringArmComponent* SpringArmComponent;
+    USpringArmComponent* SpringArmComponent;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
-    class UHeroCombatComponent* CombatComponent;
+    UHeroCombatComponent* CombatComponent;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+    UHeroUIComponent* UIComponent;
 #pragma endregion
-    
+
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharData", meta = (AllowPrivateAccess = "true"))
     UDataAsset_InputConfig* InputConfigDataAsset;
     

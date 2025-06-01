@@ -7,6 +7,7 @@
 #include "EnemyCharacter.generated.h"
 
 class UEnemyCombatComponent;
+class UEnemyUIComponent;
 /**
  * 
  */
@@ -24,9 +25,14 @@ public:
 
     FORCEINLINE UEnemyCombatComponent* GetEnemyCombatComponent() const { return EnemyCombatComponent;}
 
+    virtual UUIComponent *GetUIComponent() const override;
+
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UEnemyCombatComponent* EnemyCombatComponent;
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    UEnemyUIComponent* EnemyUIComponent;
 
     virtual void PossessedBy(AController* NewController) override;
 

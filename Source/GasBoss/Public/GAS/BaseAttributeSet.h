@@ -13,6 +13,7 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+class IUIInterface;
 /**
  * 
  */
@@ -53,4 +54,7 @@ public:
     ATTRIBUTE_ACCESSORS(UBaseAttributeSet, DamageTaken)
 
     virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData &Data) override;
+
+private:
+    TWeakInterfacePtr<IUIInterface> UIInterface;
 };

@@ -13,6 +13,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Components/Combat/HeroCombatComponent.h"
 #include "GameplayTagContainer.h"
+#include "Components/UI/HeroUIComponent.h"
 #include "GAS/HeroAbilitySystemComponent.h"
 
 #include "GasBoss/Public/DebugHelper.h"
@@ -41,11 +42,23 @@ AHeroCharacter::AHeroCharacter()
     GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
     CombatComponent = CreateDefaultSubobject<UHeroCombatComponent>(TEXT("CombatComponent"));
+    
+    UIComponent = CreateDefaultSubobject<UHeroUIComponent>(TEXT("UIComponent"));
 }
 
 UCombatComponent * AHeroCharacter::GetCombatComponent() const
 {
     return CombatComponent;
+}
+
+UUIComponent * AHeroCharacter::GetUIComponent() const
+{
+    return UIComponent;
+}
+
+UHeroUIComponent * AHeroCharacter::GetHeroUIComponent() const
+{
+    return UIComponent;
 }
 
 void AHeroCharacter::BeginPlay()

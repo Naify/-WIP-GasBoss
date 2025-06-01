@@ -7,13 +7,15 @@
 #include "AbilitySystemInterface.h"
 #include "Interfaces/PawnCombatInterface.h"
 #include "GAS/BaseAttributeSet.h"
+#include "Interfaces/UIInterface.h"
 #include "BaseCharacter.generated.h"
 
 class UDataAsset_StartupDataBase;
 class UHeroAbilitySystemComponent;
 
 UCLASS()
-class GASBOSS_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
+class GASBOSS_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface,
+                                   public IUIInterface
 {
     GENERATED_BODY()
 
@@ -23,6 +25,8 @@ public:
     virtual UAbilitySystemComponent *GetAbilitySystemComponent() const override;
 
     virtual UCombatComponent *GetCombatComponent() const override;
+
+    virtual UUIComponent* GetUIComponent() const override;
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
@@ -37,7 +41,13 @@ protected:
     virtual void PossessedBy(AController *NewController) override;
 
 public:
-    FORCEINLINE UHeroAbilitySystemComponent *GetHeroAbilitySystemComponent() const {return HeroAbilitySystemComponent;}
+    FORCEINLINE UHeroAbilitySystemComponent *GetHeroAbilitySystemComponent() const
+    {
+        return HeroAbilitySystemComponent;
+    }
 
-    FORCEINLINE UBaseAttributeSet *GetHeroAttributeSet() const {return HeroAttributeSet;}
+    FORCEINLINE UBaseAttributeSet *GetHeroAttributeSet() const
+    {
+        return HeroAttributeSet;
+    }
 };

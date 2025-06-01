@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "DebugHelper.h"
 #include "Components/Combat/EnemyCombatComponent.h"
+#include "Components/UI/EnemyUIComponent.h"
 #include "DataAssets/StartUpData/DataAsset_EnemyData.h"
 #include "Engine/AssetManager.h"
 #include "GAS/BaseAttributeSet.h"
@@ -26,6 +27,7 @@ AEnemyCharacter::AEnemyCharacter()
     GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
     EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
+    EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
     // GetHeroAbilitySystemComponent()->RegisterComponent(); 
 }
 
@@ -48,6 +50,11 @@ void AEnemyCharacter::BeginPlay()
 UCombatComponent * AEnemyCharacter::GetCombatComponent() const
 {
     return EnemyCombatComponent;
+}
+
+UUIComponent * AEnemyCharacter::GetUIComponent() const
+{
+    return EnemyUIComponent;
 }
 
 void AEnemyCharacter::PossessedBy(AController *NewController)
