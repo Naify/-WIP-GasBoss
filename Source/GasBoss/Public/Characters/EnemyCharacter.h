@@ -25,7 +25,9 @@ public:
 
     FORCEINLINE UEnemyCombatComponent* GetEnemyCombatComponent() const { return EnemyCombatComponent;}
 
-    virtual UUIComponent *GetUIComponent() const override;
+    virtual UUIComponent* GetUIComponent() const override;
+
+    virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")

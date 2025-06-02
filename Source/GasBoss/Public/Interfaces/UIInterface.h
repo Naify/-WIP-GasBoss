@@ -6,6 +6,7 @@
 #include "UObject/Interface.h"
 #include "UIInterface.generated.h"
 
+class UEnemyUIComponent;
 class UHeroUIComponent;
 class UUIComponent;
 // This class does not need to be modified.
@@ -26,4 +27,6 @@ public:
     virtual UUIComponent* GetUIComponent() const = 0;
 
     virtual UHeroUIComponent* GetHeroUIComponent() const;
+
+    virtual UEnemyUIComponent* GetEnemyUIComponent() const;
 };
