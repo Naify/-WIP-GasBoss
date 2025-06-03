@@ -5,12 +5,14 @@
 
 #include "AbilitySystemComponent.h"
 #include "DebugHelper.h"
+#include "Components/WidgetComponent.h"
 #include "Components/Combat/EnemyCombatComponent.h"
 #include "Components/UI/EnemyUIComponent.h"
 #include "DataAssets/StartUpData/DataAsset_EnemyData.h"
 #include "Engine/AssetManager.h"
 #include "GAS/BaseAttributeSet.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Widgets/WidgetBase.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -28,22 +30,18 @@ AEnemyCharacter::AEnemyCharacter()
 
     EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
     EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
+    WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("WidgetComponent"));
+    WidgetComponent->SetupAttachment(GetMesh());
     // GetHeroAbilitySystemComponent()->RegisterComponent(); 
 }
 
 void AEnemyCharacter::BeginPlay()
 {
     Super::BeginPlay();
-
-    // // if (GetHeroAttributeSet())
-    // // {
-    //     GetHeroAbilitySystemComponent()->SetNumericAttributeBase(UBaseAttributeSet::GetMaxHealthAttribute(), 100.f);
-    // // }
-
-    FGameplayAttribute Attr = UBaseAttributeSet::GetMaxHealthAttribute();
-    if (!GetHeroAbilitySystemComponent()->HasAttributeSetForAttribute(Attr))
+    
+    if (UWidgetBase* HealthWidget = Cast<UWidgetBase>(WidgetComponent->GetUserWidgetObject()))
     {
-        UE_LOG(LogTemp, Error, TEXT("ASC не содержит AttributeSet для MaxHealth"));
+        HealthWidget->InitEnemyWidget(this);
     }
 }
 

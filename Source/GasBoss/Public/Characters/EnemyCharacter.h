@@ -8,6 +8,7 @@
 
 class UEnemyCombatComponent;
 class UEnemyUIComponent;
+class UWidgetComponent;
 /**
  * 
  */
@@ -18,8 +19,6 @@ class GASBOSS_API AEnemyCharacter : public ABaseCharacter
 
 public:
     AEnemyCharacter();
-
-    virtual void BeginPlay() override;
 
     virtual UCombatComponent *GetCombatComponent() const override;
 
@@ -35,7 +34,11 @@ protected:
     
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UEnemyUIComponent* EnemyUIComponent;
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    UWidgetComponent* WidgetComponent;
 
+    virtual void BeginPlay() override;
     virtual void PossessedBy(AController* NewController) override;
 
 private:
