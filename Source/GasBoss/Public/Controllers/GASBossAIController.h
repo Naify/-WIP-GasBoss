@@ -20,6 +20,8 @@ class GASBOSS_API AGASBossAIController : public AAIController
 public:
     AGASBossAIController(const FObjectInitializer& ObjectInitializer);
 
+    virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor &Other) const override;
+
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UAIPerceptionComponent* EnemyPerceptionComponent;
