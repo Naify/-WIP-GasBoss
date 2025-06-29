@@ -23,6 +23,8 @@ public:
     virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor &Other) const override;
 
 protected:
+    virtual void BeginPlay() override;
+    
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     UAIPerceptionComponent* EnemyPerceptionComponent;
 
@@ -31,4 +33,14 @@ protected:
 
     UFUNCTION()
     virtual  void OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+
+private:
+    UPROPERTY(EditDefaultsOnly, Category = "Crowd Avoidance")
+    bool bEnableCrowdAvoidance = true;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Crowd Avoidance", meta = (EditCondition = "bEnableCrowdAvoidance", UIMin = "1", UIMax = "4"))
+    int32 CrowdAvoidanceQuality = 4;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Crowd Avoidance", meta = (EditCondition = "bEnableCrowdAvoidance"))
+    float CrowdAvoidanceRadius = 600.f;
 };

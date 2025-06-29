@@ -4,6 +4,7 @@
 #include "Controllers/GASBossAIController.h"
 
 #include "DebugHelper.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Navigation/CrowdFollowingComponent.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
@@ -11,8 +12,6 @@
 AGASBossAIController::AGASBossAIController(const FObjectInitializer &ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent")))
 {
-    UCrowdFollowingComponent* CrowdComponent = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent());
-
     SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
     SightConfig->DetectionByAffiliation.bDetectEnemies = true;
     SightConfig->DetectionByAffiliation.bDetectFriendlies = false;
@@ -43,14 +42,45 @@ ETeamAttitude::Type AGASBossAIController::GetTeamAttitudeTowards(const AActor &O
     return ETeamAttitude::Friendly;
 }
 
+void AGASBossAIController::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (UCrowdFollowingComponent* CrowdComponent = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
+    {
+        CrowdComponent->SetCrowdSimulationState(bEnableCrowdAvoidance ? ECrowdSimulationState::Enabled : ECrowdSimulationState::Disabled);
+
+        switch (CrowdAvoidanceQuality)
+        {
+            case 1: 
+                CrowdComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);
+                break;
+            case 2:
+                CrowdComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Medium);
+                break;
+            case 3:
+                CrowdComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);
+                break;
+            case 4:
+                CrowdComponent->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);
+                break;
+            default:
+                break;
+        }
+        
+        CrowdComponent->SetAvoidanceGroup(1);
+        CrowdComponent->SetGroupsToAvoid(1);
+        CrowdComponent->SetCrowdCollisionQueryRange(CrowdAvoidanceRadius);
+    }
+}
+
 void AGASBossAIController::OnEnemyPerceptionUpdated(AActor *Actor, FAIStimulus Stimulus)
 {
-    if (Stimulus.WasSuccessfullySensed())
+    if (Stimulus.WasSuccessfullySensed() && Actor)
     {
-        Debug::Print(FString::Printf(TEXT("Enemy %s has been perceived"), *Actor->GetName()), FColor::Green);
-    }
-    else if (Stimulus.WasSuccessfullySensed() == false && Stimulus.IsExpired())
-    {
-        Debug::Print(FString::Printf(TEXT("Enemy %s has lost sight"), *Actor->GetName()), FColor::Red);
+        if (UBlackboardComponent* BlackboardAI = GetBlackboardComponent())
+        {
+            BlackboardAI->SetValueAsObject(FName("TargetActor"), Actor);
+        }
     }
 }
