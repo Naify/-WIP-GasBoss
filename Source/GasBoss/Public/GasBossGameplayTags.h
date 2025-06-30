@@ -33,6 +33,8 @@ namespace GasBossGameplayTags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_weapon);
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_Melee);
 
+    GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafe);
+    
     //Shared tags
     GASBOSS_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeeleHit);
 

@@ -34,7 +34,7 @@ ETeamAttitude::Type AGASBossAIController::GetTeamAttitudeTowards(const AActor &O
 
     const IGenericTeamAgentInterface* OtherTeamMember =  Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
 
-    if (OtherTeamMember && OtherTeamMember->GetGenericTeamId() != GetGenericTeamId())
+    if (OtherTeamMember && OtherTeamMember->GetGenericTeamId() < GetGenericTeamId())
     {
         return ETeamAttitude::Hostile;
     }
@@ -76,11 +76,14 @@ void AGASBossAIController::BeginPlay()
 
 void AGASBossAIController::OnEnemyPerceptionUpdated(AActor *Actor, FAIStimulus Stimulus)
 {
-    if (Stimulus.WasSuccessfullySensed() && Actor)
+    if (UBlackboardComponent* BlackboardAI = GetBlackboardComponent())
     {
-        if (UBlackboardComponent* BlackboardAI = GetBlackboardComponent())
+        if (!BlackboardAI->GetValueAsObject(FName("TargetActor")))
         {
-            BlackboardAI->SetValueAsObject(FName("TargetActor"), Actor);
+            if (Stimulus.WasSuccessfullySensed() && Actor)
+            {
+                BlackboardAI->SetValueAsObject(FName("TargetActor"), Actor);
+            }
         }
     }
 }
