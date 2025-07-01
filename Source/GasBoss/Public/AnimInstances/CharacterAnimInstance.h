@@ -14,14 +14,14 @@ class UCharacterMovementComponent;
 UCLASS()
 class GASBOSS_API UCharacterAnimInstance : public UBaseAnimInstance
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 protected:
     UPROPERTY()
-    ABaseCharacter* OwningCharacter;
+    ABaseCharacter *OwningCharacter;
 
     UPROPERTY()
-    UCharacterMovementComponent* OwningMovementComponent;
+    UCharacterMovementComponent *OwningMovementComponent;
 
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Anims")
     float Speed;
@@ -29,6 +29,9 @@ protected:
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Anims")
     bool bHasAcceleration;
 
+    UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Anims")
+    float LocomotionDirection;
+    
 public:
     virtual void NativeInitializeAnimation() override;
     virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;

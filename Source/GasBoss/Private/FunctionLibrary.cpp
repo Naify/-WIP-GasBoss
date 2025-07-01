@@ -45,3 +45,20 @@ void UFunctionLibrary::AddGameplayTagToActorIfNone(AActor *InActor, FGameplayTag
         ASC->AddLooseGameplayTag(TagToAdd);
     }
 }
+
+void UFunctionLibrary::RemoveGameplayFromActorIfFound(AActor *InActor, FGameplayTag TagToRemove)
+{
+    UHeroAbilitySystemComponent* ASC = NativeGetHeroASCFromActor(InActor);
+
+    if (ASC->HasMatchingGameplayTag(TagToRemove))
+    {
+        ASC->RemoveLooseGameplayTag(TagToRemove);
+    }
+}
+
+bool UFunctionLibrary::NativeDoesActorHaveTag(AActor *InActor, FGameplayTag TagToCheck)
+{
+    UHeroAbilitySystemComponent* ASC = NativeGetHeroASCFromActor(InActor);
+
+    return ASC->HasMatchingGameplayTag(TagToCheck);
+}

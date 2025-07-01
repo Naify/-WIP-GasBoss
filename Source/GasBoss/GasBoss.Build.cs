@@ -18,6 +18,7 @@ public class GasBoss : ModuleRules
 			"GameplayTags",
 			"GameplayTasks", 
 			"AIModule",
+			"AnimGraphRuntime",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
