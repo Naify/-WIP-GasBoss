@@ -17,10 +17,14 @@ class GASBOSS_API UEnemyGameplayAbility : public UBaseGameplayAbility
 
 public:
     UFUNCTION(BlueprintPure, Category = "EnemyAbility")
-    AEnemyCharacter* GetEnemyCharacter();
+    AEnemyCharacter *GetEnemyCharacter();
 
     UFUNCTION(BlueprintPure, Category = "EnemyAbility")
-    UEnemyCombatComponent* GetEnemyCombatComponent();
+    UEnemyCombatComponent *GetEnemyCombatComponent();
+
+    UFUNCTION(BlueprintPure, Category = "EnemyAbility")
+    FGameplayEffectSpecHandle MakeEnemyEffectSpecHanle(TSubclassOf<UGameplayEffect> EffectClass,
+                                                       const FScalableFloat &DamageAmount);
 
 private:
     TWeakObjectPtr<AEnemyCharacter> CachedEnemyCharacter;

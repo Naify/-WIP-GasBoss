@@ -4,6 +4,7 @@
 #include "FunctionLibrary.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
+#include "GenericTeamAgentInterface.h"
 #include "Components/Combat/CombatComponent.h"
 #include "GAS/HeroAbilitySystemComponent.h"
 #include "Interfaces/PawnCombatInterface.h"
@@ -61,4 +62,18 @@ bool UFunctionLibrary::NativeDoesActorHaveTag(AActor *InActor, FGameplayTag TagT
     UHeroAbilitySystemComponent* ASC = NativeGetHeroASCFromActor(InActor);
 
     return ASC->HasMatchingGameplayTag(TagToCheck);
+}
+
+bool UFunctionLibrary::IsTargetPawnHostile(APawn *TargetPawn, APawn *QueryPawn)
+{
+    check(QueryPawn && TargetPawn);
+    IGenericTeamAgentInterface* QueryTeamMember = Cast<IGenericTeamAgentInterface>(QueryPawn->GetController());
+    IGenericTeamAgentInterface* TargetTeamMember = Cast<IGenericTeamAgentInterface>(TargetPawn->GetController());
+
+    if (QueryTeamMember && TargetTeamMember)
+    {
+        return QueryTeamMember->GetGenericTeamId() != TargetTeamMember->GetGenericTeamId();
+    }
+    
+    return false;
 }

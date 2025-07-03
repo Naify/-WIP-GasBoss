@@ -14,4 +14,7 @@ class GASBOSS_API UEnemyCombatComponent : public UCombatComponent
 {
     GENERATED_BODY()
 
+public:
+    virtual void OnHitTarget(AActor *HitActor);
+    virtual void OnEndHitTarget(AActor *HitActor);
 };

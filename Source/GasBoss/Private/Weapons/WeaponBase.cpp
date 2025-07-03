@@ -4,8 +4,10 @@
 #include "Weapons/WeaponBase.h"
 
 #include "DebugHelper.h"
+#include "FunctionLibrary.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
+#include "GameFramework/Pawn.h"
 
 AWeaponBase::AWeaponBase()
 {
@@ -26,24 +28,13 @@ void AWeaponBase::OnCollosionBeginOverlap(UPrimitiveComponent *OverlappedCompone
     UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
     APawn* WeaponOwner = GetInstigator<APawn>();
+
     if (APawn* HittedPawn = Cast<APawn>(OtherActor))
     {
-        if (WeaponOwner != HittedPawn)
+        if (UFunctionLibrary::IsTargetPawnHostile(HittedPawn, WeaponOwner))
         {
             OnWeaponHitTarget.ExecuteIfBound(OtherActor);
         }
-
-        // if (UCombatComponent* CombatComponent = UFunctionLibrary::NativeGetCombatComponentFromActor(HittedPawn))
-        // {
-        //     if (AWeaponBase* Weapon = Cast<AWeaponBase>(OverlappedComponent->GetOwner()))
-        //     {
-        //         CombatComponent->ToggleWeaponCollison(true);
-        //     }
-        // }
-    }
-    else
-    {
-        return;
     }
 }
 
@@ -53,7 +44,7 @@ void AWeaponBase::OnCollosionEndOverlap(UPrimitiveComponent *OverlappedComponent
     APawn* WeaponOwner = GetInstigator<APawn>();
     if (APawn* HittedPawn = Cast<APawn>(OtherActor))
     {
-        if (WeaponOwner != HittedPawn)
+        if (UFunctionLibrary::IsTargetPawnHostile(HittedPawn, WeaponOwner))
         {
             OnWeaponEndHitTarget.ExecuteIfBound(OtherActor);
         }

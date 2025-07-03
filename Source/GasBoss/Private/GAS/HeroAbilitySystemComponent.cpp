@@ -63,3 +63,27 @@ void UHeroAbilitySystemComponent::RemoveHeroWeaponAbilities(TArray<FGameplayAbil
 
     AbilityHandles.Empty();
 }
+
+bool UHeroAbilitySystemComponent::TryActivateAbilityWithTag(FGameplayTag AbilityTag)
+{
+    check(AbilityTag.IsValid());
+
+    TArray<FGameplayAbilitySpec*> AbilitySpecs;
+    GetActivatableGameplayAbilitySpecsByAllMatchingTags(AbilityTag.GetSingleTagContainer(),AbilitySpecs);
+
+    if (!AbilitySpecs.IsEmpty())
+    {
+        const int32 RandomIndex = FMath::RandRange(0, AbilitySpecs.Num() - 1);
+        
+        FGameplayAbilitySpec* AbilitySpec = AbilitySpecs[RandomIndex];
+
+        check(AbilitySpec);
+
+        if (!AbilitySpec->IsActive())
+        {
+            return TryActivateAbility(AbilitySpec->Handle);
+        }
+    }
+    
+    return false;
+}

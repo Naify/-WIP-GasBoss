@@ -24,4 +24,7 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Ability")
     void RemoveHeroWeaponAbilities(UPARAM(ref) TArray<FGameplayAbilitySpecHandle>& AbilityHandles);
+
+    UFUNCTION(BlueprintCallable, Category = "Ability")
+    bool TryActivateAbilityWithTag(FGameplayTag AbilityTag);
 };

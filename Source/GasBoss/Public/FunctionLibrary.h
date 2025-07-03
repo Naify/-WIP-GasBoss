@@ -28,8 +28,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "FunctionLibrary")
     static void AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag TagToAdd);
 
-    UFUNCTION(BlueprintCallable, Category = "Warrior|FunctionLibrary")
+    UFUNCTION(BlueprintCallable, Category = "FunctionLibrary")
     static void RemoveGameplayFromActorIfFound(AActor* InActor,FGameplayTag TagToRemove);
 
     static bool NativeDoesActorHaveTag(AActor* InActor,FGameplayTag TagToCheck);
+
+    UFUNCTION(BlueprintPure, Category = "FunctionLibrary")
+    static bool IsTargetPawnHostile(APawn* TargetPawn, APawn* QueryPawn);
 };
