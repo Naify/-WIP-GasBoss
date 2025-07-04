@@ -4,6 +4,7 @@
 #include "GAS/HeroAbilitySystemComponent.h"
 #include "GAS/BaseAttributeSet.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "MotionWarpingComponent.h"
 
 ABaseCharacter::ABaseCharacter()
 {
@@ -15,6 +16,7 @@ ABaseCharacter::ABaseCharacter()
     HeroAbilitySystemComponent = CreateDefaultSubobject<UHeroAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
     HeroAttributeSet = CreateDefaultSubobject<UBaseAttributeSet>(TEXT("AttributeSet"));
     HeroAbilitySystemComponent->AddSpawnedAttribute(HeroAttributeSet);
+    MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
 UAbilitySystemComponent *ABaseCharacter::GetAbilitySystemComponent() const

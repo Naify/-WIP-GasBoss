@@ -12,6 +12,7 @@
 
 class UDataAsset_StartupDataBase;
 class UHeroAbilitySystemComponent;
+class UMotionWarpingComponent;
 
 UCLASS()
 class GASBOSS_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface,
@@ -37,6 +38,9 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharData")
     TSoftObjectPtr<UDataAsset_StartupDataBase> CharacterStartupData;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "MotionWarping")
+    UMotionWarpingComponent* MotionWarpingComponent;
 
     virtual void PossessedBy(AController *NewController) override;
 

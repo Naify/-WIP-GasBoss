@@ -19,6 +19,7 @@ public class GasBoss : ModuleRules
 			"GameplayTasks", 
 			"AIModule",
 			"AnimGraphRuntime",
+			"MotionWarping"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
