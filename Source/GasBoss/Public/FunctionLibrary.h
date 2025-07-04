@@ -8,6 +8,14 @@
 #include "Types/EnumTypes.h"
 #include "FunctionLibrary.generated.h"
 
+
+UENUM()
+enum class EGasBossConfirmType : uint8
+{
+    Yes,
+    No
+};
+
 class UCombatComponent;
 /**
  * 
@@ -30,8 +38,11 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "FunctionLibrary")
     static void RemoveGameplayFromActorIfFound(AActor* InActor,FGameplayTag TagToRemove);
-
+    
     static bool NativeDoesActorHaveTag(AActor* InActor,FGameplayTag TagToCheck);
+
+    UFUNCTION(BlueprintCallable, Category = "FunctionLibrary", meta = (DisplayName = "Does Actor Have Tag", ExpandEnumAsExecs = "OutConfirmType"))
+    static void BP_DoesActorHaveTag(AActor* InActor,FGameplayTag TagToCheck,EGasBossConfirmType& OutConfirmType);
 
     UFUNCTION(BlueprintPure, Category = "FunctionLibrary")
     static bool IsTargetPawnHostile(APawn* TargetPawn, APawn* QueryPawn);

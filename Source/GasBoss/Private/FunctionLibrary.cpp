@@ -64,6 +64,12 @@ bool UFunctionLibrary::NativeDoesActorHaveTag(AActor *InActor, FGameplayTag TagT
     return ASC->HasMatchingGameplayTag(TagToCheck);
 }
 
+void UFunctionLibrary::BP_DoesActorHaveTag(AActor *InActor, FGameplayTag TagToCheck,
+    EGasBossConfirmType &OutConfirmType)
+{
+    OutConfirmType = NativeDoesActorHaveTag(InActor,TagToCheck)? EGasBossConfirmType::Yes : EGasBossConfirmType::No;
+}
+
 bool UFunctionLibrary::IsTargetPawnHostile(APawn *TargetPawn, APawn *QueryPawn)
 {
     check(QueryPawn && TargetPawn);

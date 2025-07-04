@@ -28,5 +28,6 @@ namespace GasBossGameplayTags
     UE_DEFINE_GAMEPLAY_TAG(Shared_Ability_Death, "Shared.Ability.Death");
     UE_DEFINE_GAMEPLAY_TAG(Shared_Status_Death, "Shared.Status.Death");
     UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Strafe, "Enemy.Status.Strafe");
+    UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_UnderAttack, "Enemy.Status.UnderAttack");
 
 }
